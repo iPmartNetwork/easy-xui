@@ -202,7 +202,7 @@ if [[ "$choice" == "warp" ]]; then
     wget -q -O /etc/x-ui/x-ui.db https://github.com/iPmartNetwork/easy-xui/raw/main/x-ui/db/warp.db  >/dev/null 2>&1
     systemctl restart x-ui >/dev/null 2>&1
     # Run setup_warproxy.sh script in the background without showing any output
-    nohup curl -s https://raw.githubusercontent.com/iPmartNetwork/easy-xui/main/warp/warp.sh | bash >/dev/null 2>&1 
+    nohup curl -s https://raw.githubusercontent.com/iPmartNetwork/easy-xui/main/warp/setup_warproxy.sh | bash >/dev/null 2>&1 
     echo ""
 else
     echo "Configuring x-ui database for Direct..."
