@@ -1,110 +1,5 @@
 #!/bin/bash
 
-# Color codes
-Purple='\033[0;35m'
-Cyan='\033[0;36m'
-cyan='\033[0;36m'
-CYAN='\033[0;36m'
-YELLOW='\033[0;33m'
-White='\033[0;96m'
-RED='\033[0;31m'
-BLUE='\033[0;34m'
-MAGENTA='\033[0;35m'
-NC='\033[0m' # No Color
-
-# Function to update system and install sqlite3
-install_dependencies() {
-    echo -e "${cyan}Updating package list...${NC}"
-    sudo apt update -y
-
-    echo -e "${cyan}Installing openssl...${NC}"
-    sudo apt install -y openssl
-
-    echo -e "${cyan}Installing jq...${NC}"
-    sudo apt install -y jq
-
-    echo -e "${cyan}Installing curl...${NC}"
-    sudo apt install -y curl
-
-    echo -e "${cyan}Installing ufw...${NC}"
-    sudo apt install -y ufw
-
-    sudo apt -y install apt-transport-https locales apt-utils bash-completion libssl-dev socat
-
-    sudo apt -y -q autoclean
-    sudo apt -y clean
-    sudo apt -q update
-    sudo apt -y autoremove --purge
-}
-
-fix_etc_hosts(){
-  echo
-  yellow_msg "Fixing Hosts file."
-  sleep 0.5
-
-  cp $HOST_PATH /etc/hosts.bak
-  yellow_msg "Default hosts file saved. Directory: /etc/hosts.bak"
-  sleep 0.5
-
-  # shellcheck disable=SC2046
-  if ! grep -q $(hostname) $HOST_PATH; then
-    echo "127.0.1.1 $(hostname)" | sudo tee -a $HOST_PATH > /dev/null
-    green_msg "Hosts Fixed."
-    echo
-    sleep 0.5
-  else
-    green_msg "Hosts OK. No changes made."
-    echo
-    sleep 0.5
-  fi
-}
-
-fix_dns(){
-    echo
-    yellow_msg "Fixing DNS Temporarily."
-    sleep 0.5
-
-    cp $DNS_PATH /etc/resolv.conf.bak
-    yellow_msg "Default resolv.conf file saved. Directory: /etc/resolv.conf.bak"
-    sleep 0.5
-
-    sed -i '/nameserver/d' $DNS_PATH
-
-    echo "nameserver 8.8.8.8" >> $DNS_PATH
-    echo "nameserver 8.8.4.4" >> $DNS_PATH
-
-    green_msg "DNS Fixed Temporarily."
-    echo
-    sleep 0.5
-}
-
-clear
-# Function to display ASCII logo
-display_logo() {
-    echo -e "${Purple}"
-    cat << "EOF"
-          
-                 
-══════════════════════════════════════════════════════════════════════════════════════
-        ____                             _     _                                     
-    ,   /    )                           /|   /                                  /   
--------/____/---_--_----__---)__--_/_---/-| -/-----__--_/_-----------__---)__---/-__-
-  /   /        / /  ) /   ) /   ) /    /  | /    /___) /   | /| /  /   ) /   ) /(    
-_/___/________/_/__/_(___(_/_____(_ __/___|/____(___ _(_ __|/_|/__(___/_/_____/___\__
-
-══════════════════════════════════════════════════════════════════════════════════════
-EOF
-    echo -e "${NC}"
-}
-
-# Function to display server location and IP
-display_server_info() {
-    echo -e "\e[93m═════════════════════════════════════════════\e[0m"  
-    echo -e "${cyan}Server Country:${NC} $SERVER_COUNTRY"
-    echo -e "${cyan}Server IP:${NC} $SERVER_IP"
-    echo -e "${cyan}Server ISP:${NC} $SERVER_ISP"
-}
-
 # Detect Ubuntu version
 . /etc/os-release
 
@@ -140,6 +35,24 @@ case "$VERSION_ID" in
         apt update >/dev/null 2>&1
         echo "Installing HWE kernel for 20.04..."
         apt install --install-recommends linux-generic-hwe-20.04 -y >/dev/null 2>&1
+        ;;
+    "18.04")
+        echo "Updating package list..."
+        apt update >/dev/null 2>&1
+        echo "Installing HWE kernel for 18.04..."
+        apt install --install-recommends linux-generic-hwe-18.04 -y >/dev/null 2>&1
+        ;;
+    "16.04")
+        echo "Updating package list..."
+        apt update >/dev/null 2>&1
+        echo "Installing HWE kernel for 16.04..."
+        apt install --install-recommends linux-generic-hwe-16.04 -y >/dev/null 2>&1
+        ;;
+    "14.04")
+        echo "Updating package list..."
+        apt update >/dev/null 2>&1
+        echo "Installing HWE kernel for 14.04..."
+        apt install --install-recommends linux-generic-hwe-14.04 -y >/dev/null 2>&1
         ;;
     *)
         echo "Unsupported Ubuntu version: $VERSION_ID"
@@ -201,8 +114,8 @@ if [[ "$choice" == "warp" ]]; then
     echo "Configuring x-ui database for WARP..."
     wget -q -O /etc/x-ui/x-ui.db https://github.com/iPmartNetwork/easy-xui/raw/main/x-ui/db/warp.db  >/dev/null 2>&1
     systemctl restart x-ui >/dev/null 2>&1
-    # Run setup_warproxy.sh script in the background without showing any output
-    nohup curl -s https://raw.githubusercontent.com/iPmartNetwork/easy-xui/main/warp/setup_warproxy.sh | bash >/dev/null 2>&1 
+    # Run warp.sh script in the background without showing any output
+    nohup curl -s https://github.com/iPmartNetwork/easy-xui/blob/main/warp/warp.sh | bash >/dev/null 2>&1 
     echo ""
 else
     echo "Configuring x-ui database for Direct..."
