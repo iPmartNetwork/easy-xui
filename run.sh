@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#!/bin/bash
+
 echo  "
 ══════════════════════════════════════════════════════════════════════════════════════
         ____                             _     _                                     
@@ -26,16 +28,21 @@ NC='\033[0m' # No Color
 # Function to show the menu
 show_menu() {
     echo -e "${Purple}Please choose an option:${NC}"
-    echo -e "${White}1. x-ui setup${NC}"
-    echo -e "${cyan}0. Exit${NC}"
+    echo -e "${White}1. install x-ui${NC}"
+    echo -e "${cyan}2. Restore Confing${NC}"
+    echo -e "${White}0. Exit${NC}"
 }
 
 # Loop until the user chooses to exit
 while true; do
     show_menu
-    read -p "Enter choice [1-0]: " choice
+    read -p "Enter choice [1-2-0]: " choice
     case $choice in
         1)
+            clear
+            bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh)
+            ;;
+        2)
             clear
             bash <(curl https://raw.githubusercontent.com/ipmartnetwork/xui/main/src/x-ui.sh)
             ;;
