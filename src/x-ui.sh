@@ -36,24 +36,6 @@ case "$VERSION_ID" in
         echo "Installing HWE kernel for 20.04..."
         apt install --install-recommends linux-generic-hwe-20.04 -y >/dev/null 2>&1
         ;;
-    "18.04")
-        echo "Updating package list..."
-        apt update >/dev/null 2>&1
-        echo "Installing HWE kernel for 18.04..."
-        apt install --install-recommends linux-generic-hwe-18.04 -y >/dev/null 2>&1
-        ;;
-    "16.04")
-        echo "Updating package list..."
-        apt update >/dev/null 2>&1
-        echo "Installing HWE kernel for 16.04..."
-        apt install --install-recommends linux-generic-hwe-16.04 -y >/dev/null 2>&1
-        ;;
-    "14.04")
-        echo "Updating package list..."
-        apt update >/dev/null 2>&1
-        echo "Installing HWE kernel for 14.04..."
-        apt install --install-recommends linux-generic-hwe-14.04 -y >/dev/null 2>&1
-        ;;
     *)
         echo "Unsupported Ubuntu version: $VERSION_ID"
         exit 1
@@ -90,7 +72,7 @@ esac
 # Download and install x-ui
 echo "Downloading and installing x-ui..."
 cd /root/
-wget -q https://github.com/MHSanaei/3x-ui/releases/latest/download/x-ui-linux-${XUI_ARCH}.tar.gz >/dev/null 2>&1
+wget -q wget https://github.com/alireza0/x-ui/releases/latest/download/x-ui-linux-${XUI_ARCH}.tar.gz >/dev/null 2>&1
 rm -rf x-ui/ /usr/local/x-ui/ /usr/bin/x-ui >/dev/null 2>&1
 tar zxvf x-ui-linux-${XUI_ARCH}.tar.gz >/dev/null 2>&1
 rm -rf /root/x-ui-linux-amd64.tar.gz >/dev/null 2>&1
