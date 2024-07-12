@@ -163,12 +163,14 @@ echo "BBR has been configured successfully."
 # Detect system architecture
 echo "Detecting system architecture..."
 ARCH=$(uname -m)
-ARCH=$(uname -m)
 case "${ARCH}" in
   x86_64 | x64 | amd64) XUI_ARCH="amd64" ;;
   i*86 | x86) XUI_ARCH="386" ;;
   armv8* | armv8 | arm64 | aarch64) XUI_ARCH="arm64" ;;
   armv7* | armv7) XUI_ARCH="armv7" ;;
+  armv6* | armv6) XUI_ARCH="armv6" ;;
+  armv5* | armv5) XUI_ARCH="armv5" ;;
+  s390x) echo 's390x' ;;
   *) XUI_ARCH="amd64" ;;
 esac
 
@@ -200,7 +202,7 @@ if [[ "$choice" == "warp" ]]; then
     wget -q -O /etc/x-ui/x-ui.db https://github.com/iPmartNetwork/x-ui/raw/main/x-ui/db/warp.db  >/dev/null 2>&1
     systemctl restart x-ui >/dev/null 2>&1
     # Run warp.sh script in the background without showing any output
-    nohup curl -s https://github.com/iPmartNetwork/x-ui/main/warp/warp.sh | bash >/dev/null 2>&1 
+    nohup curl -s https://github.com/iPmartNetwork/x-ui/blob/main/warp/warp.sh | bash >/dev/null 2>&1 
     echo ""
 else
     echo "Configuring x-ui database for Direct..."
