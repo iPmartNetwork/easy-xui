@@ -177,7 +177,7 @@ esac
 # Download and install x-ui
 echo "Downloading and installing x-ui..."
 cd /root/
-wget -q wget https://github.com/alireza0/x-ui/releases/latest/download/x-ui-linux-${XUI_ARCH}.tar.gz >/dev/null 2>&1
+wget -q https://github.com/MHSanaei/3x-ui/releases/latest/download/x-ui-linux-${XUI_ARCH}.tar.gz >/dev/null 2>&1
 rm -rf x-ui/ /usr/local/x-ui/ /usr/bin/x-ui >/dev/null 2>&1
 tar zxvf x-ui-linux-${XUI_ARCH}.tar.gz >/dev/null 2>&1
 rm -rf /root/x-ui-linux-amd64.tar.gz >/dev/null 2>&1
