@@ -19,7 +19,7 @@
 ## نصب
 
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/ipmartnetwork/x-ui/main/run.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/ipmartnetwork/easy-xui/main/run.sh)
 
 ```
 
