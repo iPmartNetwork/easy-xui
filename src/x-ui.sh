@@ -63,9 +63,6 @@ case "${ARCH}" in
   i*86 | x86) XUI_ARCH="386" ;;
   armv8* | armv8 | arm64 | aarch64) XUI_ARCH="arm64" ;;
   armv7* | armv7) XUI_ARCH="armv7" ;;
-  armv6* | armv6) XUI_ARCH="armv6" ;;
-  armv5* | armv5) XUI_ARCH="armv5" ;;
-  s390x) echo 's390x' ;;
   *) XUI_ARCH="amd64" ;;
 esac
 
